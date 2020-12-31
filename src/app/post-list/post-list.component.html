@@ -1,0 +1,50 @@
+<div>
+    <h3 class="text-center">Posts</h3>
+    <div class="container" *ngFor="let post of PostList;let index=index">
+        <div class="well">
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">{{post.title}}</h4>
+                    <p>{{post.body}}</p>
+
+                </div>
+
+                <button type="button" (click)="getComments(post.id)" class="btn btn-primary mx-2" data-toggle="modal"
+                    data-target="#exampleModalScrollable">
+                    Comments
+                </button>
+                <button class="btn btn-danger mx-2" (click)="deletePost(post.id,index)">Delete</button>
+
+                <div class="modal" id="exampleModalScrollable" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalScrollableLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenteredLabel">Comments for
+                                    <strong>{{post.title}}</strong>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div *ngFor="let comment of comments">
+                                    <h2>{{comment.name}}</h2>
+                                    <p>
+                                        {{comment.body}}
+                                    </p>
+                                    <p class="text-right"><strong>{{comment.email}}</strong></p>
+                                    <hr>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+    </div>
+    <hr>
+</div>
