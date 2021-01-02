@@ -12,6 +12,7 @@ export class CreatePostComponent implements OnInit {
   isInvalid: boolean;
   isSucess: boolean;
   regex = /^[a-zA-Z ]*$/;
+  invalidBody: boolean;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -19,6 +20,7 @@ export class CreatePostComponent implements OnInit {
 
   createPost(form: NgForm) {
     console.log(form);
+    console.log('Title Value: ', form.controls.title.value)
     if (form.invalid || this.isInvalid) return;
     this.http.post('https://jsonplaceholder.typicode.com/posts', this.post).subscribe((response) => {
       form.resetForm();
@@ -29,8 +31,14 @@ export class CreatePostComponent implements OnInit {
       console.log(response);
     })
   }
+
   onTitleChange(title) {
     console.log(this.regex.test(title))
     this.isInvalid = !this.regex.test(title);
+  }
+
+  onBodyChange(body: string) {
+    if (body.length >= 50) this.invalidBody = true;
+    else this.invalidBody = false;
   }
 }
